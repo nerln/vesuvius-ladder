@@ -1,0 +1,16 @@
+# working data, all re-fetchable from the public bucket
+ladder_data/
+check_data/
+predcache/
+frame9362/
+ovl/
+metadata.json
+__pycache__/
+*.pyc
+*.log
+# intermediate arrays produced by raytest.py
+prof_*.npy
+dist_*.npy
+abs_*.npy
+# selfcross reports reproduced in EVIDENCE.md
+sc_*.json

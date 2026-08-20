@@ -12,7 +12,8 @@ surface-prediction volume as supporting evidence for the PHerc0139 finding.
 ## Result
 
 In the catalog snapshot dated 2026-08-19, the corpus scan covered 188 surfaces
-and 5,142 ordered pairs. It found one duplicate:
+and 5,142 ordered pairs. Under the declared heuristic, it classified one pair
+as duplicate:
 
 `PHerc0139/20260325000000-w046_20260325` is substantially the same traced
 surface as `20260126000000-w045_2026012619`.
@@ -37,7 +38,8 @@ The ray experiment adds model-based evidence: among rays with lengths of
 high-response island. The one-sheet control is 2/28 (7.14%); two-sheet controls
 are 94/95 (98.95%) and 102/102 (100%). This means the named surface-prediction
 model behaves as if an intervening surface is present. It is not direct
-observation and is not physical ground truth.
+observation and is not physical ground truth. The released analysis's 40–55
+voxel subset was not preregistered.
 
 ## How the detector works
 

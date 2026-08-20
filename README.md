@@ -18,6 +18,8 @@ as duplicate:
 `PHerc0139/20260325000000-w046_20260325` is substantially the same traced
 surface as `20260126000000-w045_2026012619`.
 
+Upstream data-quality report: [ScrollPrize/villa#1547](https://github.com/ScrollPrize/villa/issues/1547).
+
 The directly reproducible observations are:
 
 - 89,503 of 109,823 valid vertices (81.4975%) are bit-identical in all three

@@ -240,12 +240,12 @@ by a sample below 64.
   w045->w047   400        48.8       381/400  95.25%     102/102 100.00%
 ```
 
-The unmatched rates are confounded by ray length. In the predeclared 40–55
-voxel band, the `w046→w047` model-response rate is close to the two-sheet
-controls and far from the one-sheet control. That is consistent with an
-intervening, untraced winding. It does not prove that interpretation
-independently of the model. Figure: `fig_gap.png`; full inputs and outputs:
-`results/ray_PHerc0139.json`.
+The unmatched rates are confounded by ray length. In the released analysis's
+40–55 voxel subset, the `w046→w047` model-response rate is close to the
+two-sheet controls and far from the one-sheet control. The subset was not
+preregistered. The result is consistent with an intervening, untraced winding,
+but does not prove that interpretation independently of the model. Figure:
+`fig_gap.png`; full inputs and outputs: `results/ray_PHerc0139.json`.
 
 ## 4. Existing tooling does not see it
 

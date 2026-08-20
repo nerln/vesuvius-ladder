@@ -22,26 +22,54 @@ tifxyz surfaces.  Nothing but geometry is read: no volume, no model, no GPU.
   python3 ladder.py scan --dir /path/to/tifxyz_dirs
   python3 ladder.py scan --sample PHerc0139 --json out.json --collection dup.json
 """
-import argparse, json, os, re, sys, urllib.request, gzip, io, hashlib
+import argparse, json, os, re, sys, gzip
 import concurrent.futures as cf
 import numpy as np
+
+from ladder_io import (
+    IntegrityError,
+    fetch_to_path,
+    json_validator,
+    read_validated,
+    write_json_atomic,
+)
 
 S3 = "https://vesuvius-challenge-open-data.s3.amazonaws.com"
 CATALOG = f"{S3}/metadata.json"
 
 # ---------------------------------------------------------------- data access
 
-def _fetch(url, timeout=180):
-    with urllib.request.urlopen(url, timeout=timeout) as r:
-        return r.read()
+def _catalog_validator(data):
+    """Validate either the plain or content-gzipped catalog representation."""
+    if data[:2] == b"\x1f\x8b":
+        try:
+            data = gzip.decompress(data)
+        except (EOFError, OSError) as exc:
+            raise IntegrityError(f"invalid gzip catalog: {exc}") from exc
+    json_validator(data)
 
-def load_catalog(cache=None):
-    if cache and os.path.exists(cache):
-        raw = open(cache, "rb").read()
+def load_catalog(cache=None, *, offline=False, refresh=True):
+    """Load the catalog, refreshing it unless the caller explicitly opts out.
+
+    The old behavior silently reused an unbounded-age metadata cache.  Online
+    scans now refresh atomically; ``--offline`` is the explicit reproducible
+    path for a pinned local snapshot.
+    """
+    if cache:
+        fetch_to_path(
+            CATALOG,
+            cache,
+            timeout=180,
+            offline=offline,
+            refresh=refresh and not offline,
+            validator=_catalog_validator,
+        )
+        raw = read_validated(cache, validator=_catalog_validator)
+    elif offline:
+        raise RuntimeError("--offline requires --catalog-cache")
     else:
-        raw = _fetch(CATALOG)
-        if cache:
-            open(cache, "wb").write(raw)
+        from ladder_io import fetch_bytes
+        raw = fetch_bytes(CATALOG, validator=_catalog_validator)
     if raw[:2] == b"\x1f\x8b":
         raw = gzip.decompress(raw)
     return json.loads(raw)
@@ -57,19 +85,19 @@ def catalog_surfaces(cat, sample):
                 break
     return sorted(out)
 
-def download_tifxyz(prefix, dest, timeout=300):
+def download_tifxyz(prefix, dest, timeout=300, *, offline=False):
     os.makedirs(dest, exist_ok=True)
     for f in ("meta.json", "x.tif", "y.tif", "z.tif"):
         p = os.path.join(dest, f)
-        if os.path.exists(p) and os.path.getsize(p) > 0:
-            continue
-        try:
-            open(p, "wb").write(_fetch(f"{S3}/{prefix}{f}", timeout))
-        except Exception:
-            if os.path.exists(p):
-                os.remove(p)
-            if f != "meta.json":
-                raise
+        validator = json_validator if f == "meta.json" else None
+        fetch_to_path(
+            f"{S3}/{prefix}{f}",
+            p,
+            timeout=timeout,
+            offline=offline,
+            allow_404=f == "meta.json",
+            validator=validator,
+        )
     return dest
 
 # ---------------------------------------------------------------- tifxyz read
@@ -191,7 +219,8 @@ def classify(rows, min_cover=0.02, dup_frac=0.5, coin_ratio=0.1):
     A pair is called a duplicate when more than `dup_frac` of one surface's
     vertices lie within `coin_ratio` of that unit of the other surface —
     "over half of this sheet is sitting on top of that one, a tenth of a sheet
-    spacing away".  Both directions are considered; the verdict is symmetric.
+    spacing away".  A one-voxel numerical floor is applied to that radius.
+    Both directions are considered; the verdict is symmetric.
 
     The median-distance ratio is reported too, but it is a diagnostic: it is
     diluted by whatever part of the surfaces do not coincide, so it separates
@@ -288,8 +317,11 @@ def write_collection(path, sites):
                           "metadata": {"winding_is_absolute": True},
                           "color": [1.0, 0.1, 0.1]}
         cid += 1
-    json.dump({"vc_pointcollections_json_version": "1", "collections": cols},
-              open(path, "w"), indent=4)
+    write_json_atomic(
+        path,
+        {"vc_pointcollections_json_version": "1", "collections": cols},
+        indent=4,
+    )
 
 
 # ---------------------------------------------------------------- CLI
@@ -309,6 +341,11 @@ def main():
                    help="coincident-fraction threshold for the duplicate verdict")
     s.add_argument("--min-cover", type=float, default=0.02)
     s.add_argument("--catalog-cache", default="./metadata.json")
+    s.add_argument(
+        "--offline",
+        action="store_true",
+        help="never access the network; require a catalog and surface cache",
+    )
     a = ap.parse_args()
 
     if a.cmd == "scan":
@@ -321,20 +358,27 @@ def main():
         else:
             if not a.sample:
                 ap.error("give --sample or --dir")
-            cat = load_catalog(a.catalog_cache)
+            cat = load_catalog(a.catalog_cache, offline=a.offline, refresh=not a.offline)
             surf = catalog_surfaces(cat, a.sample)
             print(f"{a.sample}: {len(surf)} published tifxyz surfaces", file=sys.stderr)
             root = os.path.join(a.work, a.sample)
             names, dirs = [], []
             with cf.ThreadPoolExecutor(8) as ex:
-                futs = {ex.submit(download_tifxyz, pre, os.path.join(root, lid)): lid
+                futs = {ex.submit(
+                            download_tifxyz,
+                            pre,
+                            os.path.join(root, lid),
+                            offline=a.offline,
+                        ): lid
                         for lid, pre in surf}
                 for f in cf.as_completed(futs):
                     lid = futs[f]
-                    try:
-                        f.result(); names.append(lid); dirs.append(os.path.join(root, lid))
-                    except Exception as e:
-                        print(f"  skip {lid}: {e}", file=sys.stderr)
+                    # An incomplete download would turn a network outage into a
+                    # misleading corpus result, so every non-optional failure
+                    # is fatal.  Only a missing meta.json is optional, and that
+                    # explicit 404 is handled inside download_tifxyz.
+                    f.result()
+                    names.append(lid); dirs.append(os.path.join(root, lid))
             order = np.argsort(names)
             names = [names[i] for i in order]; dirs = [dirs[i] for i in order]
 
@@ -380,9 +424,12 @@ def main():
             write_collection(a.collection, sites)
             print(f"wrote {a.collection} ({sum(len(p) for _, p in sites)} sites)")
         if a.json:
-            json.dump(dict(sample=a.sample, names=names, unit=unit, step=step,
-                           radius=radius, pairs=rows, ladder=lad),
-                      open(a.json, "w"), indent=1)
+            write_json_atomic(
+                a.json,
+                dict(sample=a.sample, names=names, unit=unit, step=step,
+                     radius=radius, pairs=rows, ladder=lad),
+                indent=1,
+            )
             print(f"\nwrote {a.json}")
     return 0
 

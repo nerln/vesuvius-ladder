@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vesuvius-ladder"
+version = "0.2.0"
+description = "Geometry QA for duplicate traced surfaces in Vesuvius Challenge data"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "Eugenio Nerelli"}]
+dependencies = [
+  "numpy>=1.26,<3",
+  "scipy>=1.11,<2",
+  "Pillow>=10,<13",
+  "tifffile>=2024.1",
+  "numcodecs>=0.12,<1",
+  "matplotlib>=3.8,<4",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+ladder = "ladder:main"
+ladder-check-duplicate = "check_duplicate:main"
+ladder-raytest = "raytest:main"
+
+[project.urls]
+Repository = "https://github.com/nerln/vesuvius-ladder"
+Issues = "https://github.com/nerln/vesuvius-ladder/issues"
+
+[tool.setuptools]
+py-modules = ["ladder", "ladder_io", "check_duplicate", "raytest"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = ["network: accesses the public Vesuvius data bucket"]

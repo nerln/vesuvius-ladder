@@ -1,12 +1,14 @@
 # Evidence
 
-Every number below came from a command in this file, run on a MacBook M4 with
-16 GB and no GPU, against the public open-data bucket with no credentials.
+The release verification was run on a MacBook M4 with 16 GB and no GPU against
+the anonymous public-data bucket. `data_manifest.json` records exact asset
+sizes and SHA-256 digests for the two clean-checkout experiments; the committed
+JSON snapshots record their inputs and results.
 
 ## 0. One command reproduces the finding
 
 ```bash
-python3 check_duplicate.py
+python3 check_duplicate.py ./check_data
 ```
 
 Output (verbatim):
@@ -24,16 +26,17 @@ mask XOR at that offset = 0  (0 means the masks are identical)
 vertices compared: 109823
 bit-identical in all three channels: 89503 = 81.4975%
 displaced: 20320   median displacement of those: 13.724 vx   max 66.52 vx
+displaced components (8-connected): 1   largest 20320   bbox rows/cols [168, 283, 37, 238]
 
 median nearest-neighbour distance between consecutive surfaces:
-  w044 -> w045: median   19.382 vx    fraction within 2 vx: 0.0003
-  w045 -> w046: median    0.000 vx    fraction within 2 vx: 0.8198
-  w046 -> w047: median   32.525 vx    fraction within 2 vx: 0.0001
+  w044->w045: median   19.382 vx    fraction within 2 vx: 0.0003
+  w045->w046: median    0.000 vx    fraction within 2 vx: 0.8198
+  w046->w047: median   32.525 vx    fraction within 2 vx: 0.0001
 
 published ink detections (2.399 um, model 20260417190342), correlation after alignment:
-  w044 vs w045: shift (-23, 49)   r = +0.008   over 10.00 Mpx
-  w045 vs w046: shift (0, 2)   r = +0.810   over 10.30 Mpx
-  w046 vs w047: shift (-65, 83)   r = -0.051   over 9.61 Mpx
+  w044/w045: shift (-23, 49)   r = +0.008   over 10.00 Mpx
+  w045/w046: shift (0, 2)   r = +0.810   over 10.30 Mpx
+  w046/w047: shift (-65, 83)   r = -0.051   over 9.61 Mpx
 ========================================================================
 ```
 
@@ -199,41 +202,50 @@ not the one-sheet line (15–19). And `w044 → w046`, nominally two sheets apar
 measures 21.54 — a *one*-sheet distance, which is what it must be if w046 is
 w045.
 
-## 3d. The missing papyrus is physically there
+## 3d. Model-based evidence for an intervening surface
 
-The strongest evidence is not about the meshes at all. Using the meshes the
-project publishes in the 9.362 µm frame
-(`mesh/<stamp>-on-20250728140407-9.362um.tifxyz/`, so no transform is guessed),
-I sampled the published surface-prediction volume
-`PHerc0139/representations/predictions/surfaces/20250728140407-surface-20260413222639-surface-m7-L0-th0.2.zarr`
-along the straight segment from each of 400 sampled vertices of one winding to
-its nearest vertex on another, 65 samples per ray, in the band z 4000–4600.
+This experiment is supporting evidence from a published surface-prediction
+model, not a direct physical measurement. It uses the meshes published in the
+9.362 µm frame
+(`mesh/<stamp>-on-20250728140407-9.362um.tifxyz/`) and the prediction volume
+`PHerc0139/representations/predictions/surfaces/20250728140407-surface-20260413222639-surface-m7-L0-th0.2.zarr`.
+No coordinate transform is estimated.
 
-Frame check first: the prediction sampled at w047's own vertices has median 255
-and 53.8 % of samples above 128; the same points displaced 200 voxels in a
-random direction give median 0 and 16.6 %.
+The clean-checkout command downloads the five pinned meshes and the required
+Zarr chunks, validates their hashes, writes the complete JSON snapshot, and
+renders the figure:
 
-A ray is counted as crossing a **distinct untraced sheet** when some sample
-strictly inside the gap exceeds 128 and is separated from *both* endpoints by a
-sample below 64.
-
-```
-        pair     n  median len  interior-sheet rate   length-matched 40-55 vx
-  w046->w047   400        46.2                93.0%     n= 86,  98.8%
-  w047->w048   400        20.1                31.2%     n= 28,   7.1%
-  w048->w049   400        16.8                30.8%     n=  3,  (too few)
-  w047->w049   400        34.6                94.8%     n= 95,  98.9%
-  w045->w047   400        48.8                95.2%     n=102, 100.0%
+```bash
+python3 raytest.py --work ./ray_data \
+  --output ./results/ray_PHerc0139.reproduced.json \
+  --figure ./fig_gap.reproduced.png
 ```
 
-The unmatched rates are confounded by ray length — a 17-voxel ray has little
-room for an interior anything. Matching on length settles it: among rays of
-40–55 voxels, **98.8 %** of w046→w047 rays cross a separate sheet, identical to
-the genuine two-sheet controls (98.9 %, 100.0 %) and nothing like a genuine
-one-sheet step (7.1 %).
+With deterministic seed 1, 400 vertices per pair are sampled in z=4000–4600.
+Each ray has 65 samples between a source vertex and its nearest vertex on the
+other surface. The frame check samples w047 itself: median response 255 and
+55.5% above 128. Points displaced 200 voxels in deterministic random
+directions have median 0 and 16.0% above 128.
 
-The papyrus of winding 46 is in the scan, the project's own surface model
-predicts it, and no published segment traces it. Figure: `fig_gap.png`.
+A ray is classified as having a distinct **interior model response** when a
+sample strictly inside the gap exceeds 128 and is separated from both endpoints
+by a sample below 64.
+
+```
+        pair     n  median len  interior response     length-matched 40-55 vx
+  w046->w047   400        46.2       372/400  93.00%      85/86   98.84%
+  w047->w048   400        20.1       125/400  31.25%       2/28    7.14%
+  w048->w049   400        16.8       123/400  30.75%       1/3    (too few)
+  w047->w049   400        34.6       379/400  94.75%      94/95   98.95%
+  w045->w047   400        48.8       381/400  95.25%     102/102 100.00%
+```
+
+The unmatched rates are confounded by ray length. In the predeclared 40–55
+voxel band, the `w046→w047` model-response rate is close to the two-sheet
+controls and far from the one-sheet control. That is consistent with an
+intervening, untraced winding. It does not prove that interpretation
+independently of the model. Figure: `fig_gap.png`; full inputs and outputs:
+`results/ray_PHerc0139.json`.
 
 ## 4. Existing tooling does not see it
 
@@ -323,12 +335,37 @@ check costs.
 
 ## 8. What the duplication costs
 
-`w046`'s own meta.json gives `area_cm2 = 36.69`. 81.5 % of it repeats `w045`, so
-roughly **30 cm² of PHerc0139's surface is published twice** and one wrap of
-comparable area is absent from the published set — including from its ink
-detections, which exist for `w046` at both 2.399 µm and 1.129 µm.
+`w046`'s own meta.json gives `area_cm2 = 36.69`. Multiplying that value by the
+81.4975% repeated-cell fraction gives **29.9 cm²**. This is an approximate
+impact estimate, not a direct integration of the repeated region's physical
+area. The geometric ladder and the model-based ray evidence are consistent
+with one untraced wrap of comparable scale; that missing-area interpretation
+is an inference, not another measured quantity.
 
 ## 9. Figure
 
 `fig_ladder.png` — the geometric ladder, the independent ink ladder, and four
 consecutive ink maps.
+
+`fig_gap.png` — deterministic ray-length distributions and length-matched
+interior-response rates. The title and axis explicitly identify these as
+surface-model evidence.
+
+## 10. Release reproducibility and limits
+
+- `data_manifest.json` pins the duplicate-check assets, the five ray meshes,
+  the Zarr schema, seed, thresholds, and expected counts.
+- `results/ray_PHerc0139.json` pins all 361 accessed chunk digests (112,892,827
+  bytes) as well as the derived result. A second offline run produced an
+  identical 143,000-byte JSON file with SHA-256
+  `13733677d4901e9c33277e7e8ab2c84aba1e4af4de6a8efd0eefc799fee470ea`.
+- `results/corpus_snapshot.json` pins the 2026-08-19 catalog digest and every
+  committed corpus-result artifact. The source surfaces for the full 188-item
+  sweep are not vendored, so a future run against the mutable bucket is a new
+  observation rather than a guaranteed byte reconstruction of that historical
+  corpus input.
+- Only an explicit Zarr-chunk 404 is treated as fill data. Every other HTTP,
+  transport, cache-integrity, and decode failure aborts the run.
+- The generic detector uses a documented one-voxel floor on its otherwise
+  scroll-relative coincidence radius. The floor was inactive in this corpus
+  snapshot (minimum unit 11.64 voxels).

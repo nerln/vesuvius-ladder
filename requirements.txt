@@ -1,0 +1,9 @@
+# Exact environment used for the 2026-08-20 release verification.
+numpy==2.5.2
+scipy==1.18.0
+Pillow==12.3.0
+tifffile==2026.8.16
+numcodecs==0.16.5
+matplotlib==3.11.1
+pytest==9.1.1
+

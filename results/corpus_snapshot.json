@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-08-19",
+  "source": "https://vesuvius-challenge-open-data.s3.amazonaws.com",
+  "catalog": {
+    "path": "metadata.json",
+    "size": 15302739,
+    "sha256": "c4d74cdb5881a80c0bd4f2c4b2238f64c3fa8dd62f933a4daac6f434bc40089c"
+  },
+  "summary": {
+    "surfaces": 188,
+    "ordered_pairs": 5142,
+    "duplicate_pairs": 1,
+    "duplicate": "PHerc0139 w045/w046",
+    "duplicate_coincident_fraction": 0.818,
+    "highest_nonduplicate_coincident_fraction": 0.127
+  },
+  "artifacts": {
+    "corpus_ladder.txt": {"size": 3776, "sha256": "90e445884caed8cadefc895c68ab6b79b845e5b53dd25761eebe36509536cc95"},
+    "dup_PHerc0139.json": {"size": 587540, "sha256": "6c5d5763576a7ad8389fc592c0f6f8fd79e554c03408b372026be9901c6cf744"},
+    "ladder_PHerc0009B.json": {"size": 197021, "sha256": "bd0699777fbc1ec9907372d36e59c4e3964f086d3ee20d62664fb5836842601d"},
+    "ladder_PHerc0139.json": {"size": 828498, "sha256": "a3085af003f452d9dfc2a9dd2ec6ccd97bf1b165cb3bf69e7cd6f467a8702383"},
+    "ladder_PHerc0332.json": {"size": 1527, "sha256": "34a275cd842332bc21ec642f3f9102820497dbb8b59a0d1d599c417bf7678769"},
+    "ladder_PHerc0343P.json": {"size": 38344, "sha256": "6e32387150b0421588a7d2f3db162ac221544cd60708416e77c53f24dd79a53b"},
+    "ladder_PHerc0500P2.json": {"size": 871219, "sha256": "dca3a75afd6a491bed46bff310014e69b930d5ca4d80628a7bc78e5201c0150d"},
+    "ladder_PHerc0800.json": {"size": 20928, "sha256": "148170af415860cc1ec9d0f0c48f7ff93770f5a62617f121cca41403bf776ca9"},
+    "ladder_PHerc0814.json": {"size": 82512, "sha256": "f735f375659fbac349c647462bea46dd66160c85d1ee8b8bbe564260a87ca2b0"},
+    "ladder_PHerc1447.json": {"size": 109179, "sha256": "f8f1047219e6f06452ced56bfd770503ca2d80efc1250bd049859f4308afabc5"},
+    "ladder_PHercMANBp.json": {"size": 69384, "sha256": "adfe9e41a3ea6d5b326e2938e6ae702eef1e896babb17e092eb333c34f66f788"},
+    "ladder_PHercParis4.json": {"size": 886824, "sha256": "febd48c92a0164b55608bcb46e9242d4437a15c88b552af25e95eb5bb3b62206"}
+  }
+}

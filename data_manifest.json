@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-08-19",
+  "source": "https://vesuvius-challenge-open-data.s3.amazonaws.com",
+  "ray_experiment": {
+    "reference_result": "results/ray_PHerc0139.json",
+    "zarr": {
+      "path": "PHerc0139/representations/predictions/surfaces/20250728140407-surface-20260413222639-surface-m7-L0-th0.2.zarr",
+      "level": 0,
+      "metadata_sha256": "20722d2fd79f5ed7dde9d7dec6261922e6947600c92b6f7f73fb2385fa5538f2",
+      "metadata": {
+        "chunks": [192, 192, 192],
+        "compressor": {
+          "blocksize": 0,
+          "clevel": 1,
+          "cname": "zstd",
+          "id": "blosc",
+          "shuffle": 1
+        },
+        "dimension_separator": "/",
+        "dtype": "|u1",
+        "fill_value": 0,
+        "filters": null,
+        "order": "C",
+        "shape": [20974, 6621, 6621],
+        "zarr_format": 2
+      }
+    },
+    "meshes": {
+      "45": {
+        "path": "PHerc0139/segments/20260126000000-w045_2026012619/mesh/20260126000000-on-20250728140407-9.362um.tifxyz",
+        "files": {
+          "meta.json": {"size": 417, "sha256": "5ddaa7d7de1c6b14b6194bb4deef8964e8db44fbd5dd87cff30370a3206da82c"},
+          "x.tif": {"size": 492886, "sha256": "152250af01f4997f3e49ccc2ec21a865e34d44a1b7cbff91f610cce3e400bdc5"},
+          "y.tif": {"size": 492886, "sha256": "7b05ff73132afdad9a3c03d3de53a5fb8741f8be1c8a398cd7b49901dff27b9f"},
+          "z.tif": {"size": 492886, "sha256": "c29c270be3daec9ed8d108d7df348daeb32d7ab867072feba028d1309633a58e"}
+        }
+      },
+      "46": {
+        "path": "PHerc0139/segments/20260325000000-w046_20260325/mesh/20260325000000-on-20250728140407-9.362um.tifxyz",
+        "files": {
+          "meta.json": {"size": 415, "sha256": "a73ca0a53b3f7350d9119e43349b6a1423e88496511d46367bec61385d6b6ae9"},
+          "x.tif": {"size": 494082, "sha256": "3ab134524dc4537791f6efd2ec326468e61e170b9c1799e74148136e29b62634"},
+          "y.tif": {"size": 494082, "sha256": "de6a40b9e5ca05416a2a1d322d8cef882e3d743216ebfe754eefa28cb0e989a3"},
+          "z.tif": {"size": 494082, "sha256": "eec2ea34b5acc57685a20c13cd85f057859105022689f2d4865b2cb47a97afc1"}
+        }
+      },
+      "47": {
+        "path": "PHerc0139/segments/20260206000001-w047_2026020613/mesh/20260206000001-on-20250728140407-9.362um.tifxyz",
+        "files": {
+          "meta.json": {"size": 421, "sha256": "e57b5ef2d71998a1a77307b49a887cae613636370fa18e788b33387d6be1bebc"},
+          "x.tif": {"size": 493030, "sha256": "198a35df477ccca327144516b896bd98455b24aa3288cf32f80a13defe822ce3"},
+          "y.tif": {"size": 493030, "sha256": "be1b65c4bb1914acc8dfda73c3ddb11be8889b1b48950e6db6dcb7a475f8ba9f"},
+          "z.tif": {"size": 493030, "sha256": "fe6491166f17667f1f3a6b3848fe4ce50ca5345d139e63ced6602d24d964dcfd"}
+        }
+      },
+      "48": {
+        "path": "PHerc0139/segments/20260219000001-w048_2026021912/mesh/20260219000001-on-20250728140407-9.362um.tifxyz",
+        "files": {
+          "meta.json": {"size": 420, "sha256": "771adf817df23e48e4eb7b8edf8de1d89e1c9c72810c93ccdc179d85117f4a04"},
+          "x.tif": {"size": 487478, "sha256": "095a1a7a38ac5dc81974da947ff4722ef87886bad171d58d99b3ab66bd9099dc"},
+          "y.tif": {"size": 487478, "sha256": "2ac79fd5d28642d4ac1bc2a2467d39fa91bda9a24d2c9087a23e0c69a5529809"},
+          "z.tif": {"size": 487478, "sha256": "a718f03def3d5ba4d9899e91c75755eae5821ffb05361f94f540dde3c669766c"}
+        }
+      },
+      "49": {
+        "path": "PHerc0139/segments/20260318000000-w049_20260318/mesh/20260318000000-on-20250728140407-9.362um.tifxyz",
+        "files": {
+          "meta.json": {"size": 423, "sha256": "5ffef8c59a16f10b1f6d78eccfad8947e1b1836fbbeaa8aaf03798c7e735c3bd"},
+          "x.tif": {"size": 532174, "sha256": "fe267a95dc9d02d3dc7668f7c19774030bf6c6fb1d3da04138dc6b3dd226a00a"},
+          "y.tif": {"size": 532174, "sha256": "2f9d7dfdac3324bbf47f3658454f30f491957661cd4e9bdd49b5a225c474957b"},
+          "z.tif": {"size": 532174, "sha256": "9d1ae9f572764714084ade7bc0e526b3eb250e10f89a1ede4cceac7d45a7ebe0"}
+        }
+      }
+    },
+    "pairs": [
+      {"name": "46-47", "from": 46, "to": 47, "label": "THE GAP"},
+      {"name": "47-48", "from": 47, "to": 48, "label": "1 sheet"},
+      {"name": "48-49", "from": 48, "to": 49, "label": "1 sheet"},
+      {"name": "47-49", "from": 47, "to": 49, "label": "2 sheets"},
+      {"name": "45-47", "from": 45, "to": 47, "label": "2 sheets"}
+    ],
+    "config": {
+      "n_rays": 400,
+      "n_samples": 65,
+      "z_band": [4000, 4600],
+      "seed": 1,
+      "high_threshold": 128,
+      "low_threshold": 64,
+      "edge_fraction": 0.15,
+      "length_match": [40, 55],
+      "workers": 12
+    },
+    "expected": {
+      "rate_tolerance": 0.000001,
+      "pairs": {
+        "46-47": {"n": 400, "interior_count": 372, "interior_rate": 0.93, "matched_n": 86, "matched_count": 85, "matched_rate": 0.9883720930232558, "median_length": 46.23613371013166},
+        "47-48": {"n": 400, "interior_count": 125, "interior_rate": 0.3125, "matched_n": 28, "matched_count": 2, "matched_rate": 0.07142857142857142, "median_length": 20.109083166051633},
+        "48-49": {"n": 400, "interior_count": 123, "interior_rate": 0.3075, "matched_n": 3, "matched_count": 1, "matched_rate": 0.3333333333333333, "median_length": 16.7845627820287},
+        "47-49": {"n": 400, "interior_count": 379, "interior_rate": 0.9475, "matched_n": 95, "matched_count": 94, "matched_rate": 0.9894736842105263, "median_length": 34.5752111146588},
+        "45-47": {"n": 400, "interior_count": 381, "interior_rate": 0.9525, "matched_n": 102, "matched_count": 102, "matched_rate": 1.0, "median_length": 48.77170571936391}
+      }
+    }
+  },
+  "duplicate_check": {
+    "expected": {
+      "shape_045": [676, 490],
+      "shape_046": [684, 498],
+      "valid_045": 109823,
+      "valid_046": 109823,
+      "bbox_identical": true,
+      "mode": "gen_neighbor",
+      "neighbor_dir": "out",
+      "max_gen": 2,
+      "copy_moved_points": 13674,
+      "alignment": [4, 4],
+      "common": 109823,
+      "mask_xor": 0,
+      "bit_identical": 89503,
+      "bit_identical_fraction": 0.8149750052356974,
+      "displaced": 20320,
+      "displaced_median": 13.724323272705078,
+      "displaced_components": 1,
+      "largest_component": 20320,
+      "displaced_bbox": [168, 283, 37, 238],
+      "ladder": {
+        "w044->w045": {"median": 19.382210797800262, "within_2": 0.00026345912749604813},
+        "w045->w046": {"median": 0.0, "within_2": 0.8198191635631881},
+        "w046->w047": {"median": 32.52520476649904, "within_2": 0.00010016116842555748}
+      },
+      "correlations": {
+        "w044/w045": {"shift": [-23, 49], "r": 0.008225088339180762, "pixels": 9999333},
+        "w045/w046": {"shift": [0, 2], "r": 0.8101517652666185, "pixels": 10298980},
+        "w046/w047": {"shift": [-65, 83], "r": -0.05121863992626029, "pixels": 9612414}
+      },
+      "float_tolerance": 0.000001
+    },
+    "assets": {
+      "PHerc0139/segments/20260115000000-w044_2026011522/mesh/intermediate/tifxyz_original/meta.json": {"size": 1265, "sha256": "b85af4b1a863180809d7fb56c2a3144de5d738b1ba0094e4b106ad7fcd28c0a9"},
+      "PHerc0139/segments/20260115000000-w044_2026011522/mesh/intermediate/tifxyz_original/x.tif": {"size": 389854, "sha256": "2cff605256683e3b04debec14ecc4326d9a37a312d03b9a299815fa4bb0f52ae"},
+      "PHerc0139/segments/20260115000000-w044_2026011522/mesh/intermediate/tifxyz_original/y.tif": {"size": 398252, "sha256": "496182bab289e64f9847b543cf07c21704a4fb5e6ffead897cbff057387b7ece"},
+      "PHerc0139/segments/20260115000000-w044_2026011522/mesh/intermediate/tifxyz_original/z.tif": {"size": 339188, "sha256": "53688443c03e3e8c7cf84d421fabc99017dd937d2d3b4218e9d3c3a78822e7c8"},
+      "PHerc0139/segments/20260115000000-w044_2026011522/ink-detection/downsampled/PHerc0139-20260115000000-2.399um-0.22m-78keV-volume-20260102150214-20260417190342-new_canon_autoresearch_recipe-tile256-stride128-ds8.jpg": {"size": 956674, "sha256": "4a6cd6205efc8e292aefba090abc434839aac6b9bc6b3f863a4b14dc7d28e84c"},
+      "PHerc0139/segments/20260126000000-w045_2026012619/mesh/intermediate/tifxyz_original/meta.json": {"size": 1136, "sha256": "bd52d557e49582751444ce6fb5d297531cfaf6b0c69a1e29dc10679ac46681ec"},
+      "PHerc0139/segments/20260126000000-w045_2026012619/mesh/intermediate/tifxyz_original/x.tif": {"size": 393920, "sha256": "474d26f9838c2b1346238c5c2a91482c4d8dfa6e1fa841a25535854411466a41"},
+      "PHerc0139/segments/20260126000000-w045_2026012619/mesh/intermediate/tifxyz_original/y.tif": {"size": 399014, "sha256": "0730324efc549456a9aa90abc77e5ef8a3e12b9ac90cc1fc70f0dfb08b4b3061"},
+      "PHerc0139/segments/20260126000000-w045_2026012619/mesh/intermediate/tifxyz_original/z.tif": {"size": 341262, "sha256": "74f4cd17503b6eed59420a17fcf098c4cd887aad04bbcf304572733e659e170c"},
+      "PHerc0139/segments/20260126000000-w045_2026012619/ink-detection/downsampled/PHerc0139-20260126000000-2.399um-0.22m-78keV-volume-20260102150214-20260417190342-new_canon_autoresearch_recipe-tile256-stride128-ds8.jpg": {"size": 878212, "sha256": "6bd2df05e56b0be0cf4072a4b035f483e9f92cd8e6dbce506d113124515533a8"},
+      "PHerc0139/segments/20260325000000-w046_20260325/mesh/intermediate/tifxyz_original/meta.json": {"size": 1515, "sha256": "fa97aa0701e11e005a0ce34e199631f430e6d00d1332d1e35a18b8f176e07afe"},
+      "PHerc0139/segments/20260325000000-w046_20260325/mesh/intermediate/tifxyz_original/x.tif": {"size": 392656, "sha256": "eff47bc5a7a4d2b05bb274598269b2dcb9664d5e6e8c102dda108b1a2439d14d"},
+      "PHerc0139/segments/20260325000000-w046_20260325/mesh/intermediate/tifxyz_original/y.tif": {"size": 398768, "sha256": "907a03fc5e08fd5cee2494bc75559b1027383c9bfc1e0234f10a9ab7fdfb7cce"},
+      "PHerc0139/segments/20260325000000-w046_20260325/mesh/intermediate/tifxyz_original/z.tif": {"size": 340922, "sha256": "b361e82ebc7c43e88322dc2d7869cad85b7cd6382b091c1cca9bb86ea4582dd8"},
+      "PHerc0139/segments/20260325000000-w046_20260325/ink-detection/downsampled/PHerc0139-20260325000000-2.399um-0.22m-78keV-volume-20260102150214-20260417190342-new_canon_autoresearch_recipe-tile256-stride128-ds8.jpg": {"size": 870483, "sha256": "16217b849828b46b063964b83da656d306588ec3cc6fdddf4cfd5b4c7a049530"},
+      "PHerc0139/segments/20260206000001-w047_2026020613/mesh/intermediate/tifxyz_original/meta.json": {"size": 1466, "sha256": "52eb05f106c2101878071010713cb2511d4670df847976c2b675d877be382b87"},
+      "PHerc0139/segments/20260206000001-w047_2026020613/mesh/intermediate/tifxyz_original/x.tif": {"size": 389512, "sha256": "d0be2844ce2c32719d10ff468aec20c91ff39d954f1e0085fb1bf47768d103e8"},
+      "PHerc0139/segments/20260206000001-w047_2026020613/mesh/intermediate/tifxyz_original/y.tif": {"size": 394314, "sha256": "e6e3000a54dbc3a086eb90b3f1df3cd484396a7e9ce5a7ca8d9d0e286678e9ab"},
+      "PHerc0139/segments/20260206000001-w047_2026020613/mesh/intermediate/tifxyz_original/z.tif": {"size": 335654, "sha256": "e326ed2a30814f8c41b05915acf31c79f0c2aeebf489a3c6b8054b94c6cb2400"},
+      "PHerc0139/segments/20260206000001-w047_2026020613/ink-detection/downsampled/PHerc0139-20260206000001-2.399um-0.22m-78keV-volume-20260102150214-20260417190342-new_canon_autoresearch_recipe-tile256-stride128-ds8.jpg": {"size": 805985, "sha256": "d81293babee837cf486c3a9413a841ab56247c9a7283a2106a26dcff8c814f50"}
+    }
+  }
+}

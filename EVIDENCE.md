@@ -134,7 +134,7 @@ anywhere else in the corpus is 0.127 — two `z_dbg_gen` snapshots of a single
 growth run on PHerc0500P2, which genuinely share surface without coinciding.
 The margin between the defect and the busiest legitimate overlap is 6.4x.
 
-The full corpus sweep is `corpus_ladder.txt`.
+The full corpus sweep is [`results/corpus_ladder.txt`](results/corpus_ladder.txt).
 
 ## 3. Independent re-derivation
 
@@ -329,9 +329,9 @@ detection at two resolutions.
 `copy_moved_points` does not predict the failure — w046 reports more moved
 points than w048 or w049, both of which are fine. The villa docs already warn
 that "Copy Out/In is useful as an acceleration tool, not as an unchecked
-replacement for validation"
-(`scrollprize.org/docs/37_2026_open_problems.md:314`); this is what the missing
-check costs.
+replacement for validation" in the
+[2026 open-problems documentation](https://github.com/ScrollPrize/villa/blob/main/scrollprize.org/docs/37_2026_open_problems.md#copy-outin-exploiting-neighboring-wraps);
+this is what the missing check costs.
 
 ## 8. What the duplication costs
 

@@ -164,4 +164,12 @@ QA method; it does not claim eligibility for, or predict, a particular prize
 tier. Prize value depends on the program rules and on whether the check is
 integrated into the production validation workflow.
 
+## Agentic-use disclosure
+
+OpenAI Codex was used agentically to investigate, implement, test, audit, and
+document this repository. The reported checks were executed in the repository
+environment, and the public manifests and machine-readable outputs are provided
+so the conclusions can be independently audited. Responsibility for the release
+and submission remains with Eugenio Nerelli.
+
 MIT licensed.

@@ -171,7 +171,6 @@ integrated into the production validation workflow.
 OpenAI Codex was used agentically to investigate, implement, test, audit, and
 document this repository. The reported checks were executed in the repository
 environment, and the public manifests and machine-readable outputs are provided
-so the conclusions can be independently audited. Responsibility for the release
-and submission remains with Eugenio Nerelli.
+so the conclusions can be independently audited.
 
 MIT licensed.

@@ -11,12 +11,25 @@ surface-prediction volume as supporting evidence for the PHerc0139 finding.
 
 ## Result
 
-In the catalog snapshot dated 2026-08-19, the corpus scan covered 188 surfaces
-and 5,142 ordered pairs. Under the declared heuristic, it classified one pair
-as duplicate:
+In the catalog snapshot dated 2026-08-19, the corpus scan covered 187 surfaces
+across ten scrolls and 5,142 ordered pairs. Under the declared heuristic, it
+classified one pair as duplicate:
 
 `PHerc0139/20260325000000-w046_20260325` is substantially the same traced
 surface as `20260126000000-w045_2026012619`.
+
+`corpus_summary.py` recomputes this table from the committed
+`results/ladder_*.json` files, so the headline can be checked without re-running
+the scan against a bucket that has since moved:
+
+```
+python corpus_summary.py --csv results/corpus_summary.csv
+```
+
+Earlier revisions of this file and of `results/corpus_snapshot.json` said 188
+surfaces. The committed per-scroll results sum to 187, and 5,142 is exactly the
+ordered-pair count those ten scrolls give, so 187 is the figure the evidence in
+this repository supports.
 
 Upstream data-quality report: [ScrollPrize/villa#1547](https://github.com/ScrollPrize/villa/issues/1547).
 
@@ -31,6 +44,10 @@ The directly reproducible observations are:
   adjacent controls are `+0.008` and `-0.051`;
 - the geometric coincident fraction is 0.818. The largest non-duplicate score
   in that corpus snapshot is 0.127;
+- the whole-corpus scores leave the threshold unoccupied on both sides: the
+  highest pair called distinct scores 0.1265 and the only pair called duplicate
+  scores 0.8159, a separation of 6.5x with the declared 0.5 cut between them and
+  no pair anywhere near it;
 - multiplying the 81.4975% repeated-cell fraction by `w046`'s reported
   `area_cm2 = 36.69` gives an approximate repeated area of 29.9 cm². This is an
   estimate, not a direct area integration.
@@ -143,7 +160,7 @@ chunk digests and derived result. `results/corpus_snapshot.json` pins the
 catalog digest and every committed corpus-result artifact.
 
 The historical whole-corpus output can therefore be checked for repository
-drift, but its 188 source surfaces are not vendored. Re-running it later
+drift, but its 187 source surfaces are not vendored. Re-running it later
 against the mutable public bucket is a new corpus observation, not a guaranteed
 byte-for-byte reconstruction of the 2026-08-19 input snapshot. The core
 PHerc0139 duplicate and ray experiments are the clean-checkout, asset-pinned

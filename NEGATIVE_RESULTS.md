@@ -73,8 +73,8 @@ inference built on it is not.
 ink predictions must agree. Disagreement localises an unwrapping error, with no
 ground truth needed.
 
-**What killed it.** The segments barely overlap. Screening all 5142 ordered
-pairs of the 188 published surfaces, at 5 voxels only 91 pairs have even 1 % of
+**What killed it.** The segments barely overlap. Screening all 5142 ordered pairs
+(the 187 published surfaces that have a sibling in the same scroll), at 5 voxels only 91 pairs have even 1 % of
 one surface near the other, 11 pairs exceed 10 %, and none exceeds 50 %. On
 PHercParis4 — the scroll with the most published surface — no pair exceeds 10 %.
 There is not enough doubly-covered papyrus with independent predictions to build

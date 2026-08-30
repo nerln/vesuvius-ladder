@@ -11,14 +11,20 @@ surface-prediction volume as supporting evidence for the PHerc0139 finding.
 
 ## Result
 
-In the catalog snapshot dated 2026-08-19, the corpus scan covered 188 surfaces
-and 5,142 ordered pairs. Under the declared heuristic, it classified one pair
-as duplicate:
+In the catalog snapshot dated 2026-08-19, the corpus scan covered the 188 published
+surfaces. The 187 of them that share a scroll with at least one other form 5,142
+ordered pairs; the remaining one, on PHerc0172, has no sibling to pair with. Under
+the declared heuristic, it classified one pair as duplicate:
 
 `PHerc0139/20260325000000-w046_20260325` is substantially the same traced
 surface as `20260126000000-w045_2026012619`.
 
 Upstream data-quality report: [ScrollPrize/villa#1547](https://github.com/ScrollPrize/villa/issues/1547).
+
+`corpus_summary.py` re-derives that table, the surface and pair counts, and the
+duplicate itself from the committed `results/ladder_*.json` files, so the headline
+above can be checked against the artifacts without re-running the scan or touching
+the network.
 
 The directly reproducible observations are:
 

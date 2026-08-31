@@ -8,7 +8,8 @@
     "sha256": "c4d74cdb5881a80c0bd4f2c4b2238f64c3fa8dd62f933a4daac6f434bc40089c"
   },
   "summary": {
-    "surfaces": 188,
+    "catalog_segments": 311,
+    "surfaces_with_tifxyz": 188,
     "pairable_surfaces": 187,
     "ordered_pairs": 5142,
     "duplicate_pairs": 1,

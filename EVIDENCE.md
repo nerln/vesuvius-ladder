@@ -129,9 +129,10 @@ done
 | PHercParis4 | 39 | 28.42 | 0 | 0.012 |
 | PHerc0172   |  1 |  —    | — | single surface, nothing to pair |
 
-188 published surfaces, of which the 187 with a sibling in the same scroll form
-5142 ordered pairs. One pair is classified duplicate, at 0.818. Across the other
-5141 the highest score is 0.127 — two `z_dbg_gen` snapshots of a single growth
+188 surfaces carrying a `tifxyz` in the catalog, of which the 187 in a scroll with
+at least one other form 5142 ordered pairs. The 188th is PHerc0172's only `tifxyz`
+and has nothing to pair with. One pair is classified duplicate, at 0.818. Across the
+other 5141 the highest score is 0.127 — two `z_dbg_gen` snapshots of a single growth
 run on PHerc0500P2, which genuinely share surface without coinciding.
 
 The full corpus sweep is [`results/corpus_ladder.txt`](results/corpus_ladder.txt).

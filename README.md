@@ -11,10 +11,16 @@ surface-prediction volume as supporting evidence for the PHerc0139 finding.
 
 ## Result
 
-In the catalog snapshot dated 2026-08-19, the corpus scan covered the 188 published
-surfaces. The 187 of them that share a scroll with at least one other form 5,142
-ordered pairs; the remaining one, on PHerc0172, has no sibling to pair with. Under
-the declared heuristic, it classified one pair as duplicate:
+In the catalog snapshot dated 2026-08-19, the corpus scan covered 188 surfaces. That
+is not the number of published segments, and the difference is a filter this tool
+applies: the catalog lists 311 segments across 12 scrolls, and 188 of them publish a
+`tifxyz` surface, which is the only thing `ladder` reads. Of those 188, the 187 that
+sit in a scroll holding at least one other `tifxyz` form 5,142 ordered pairs. The
+188th is the single `tifxyz` of PHerc0172 — a scroll with 53 published segments, only
+one of which publishes a surface — so it has nothing to pair with. PHerc1667 publishes
+20 segments and no `tifxyz` at all, so it does not appear here.
+
+Under the declared heuristic, the scan classified one pair as duplicate:
 
 `PHerc0139/20260325000000-w046_20260325` is substantially the same traced
 surface as `20260126000000-w045_2026012619`.
@@ -24,7 +30,9 @@ Upstream data-quality report: [ScrollPrize/villa#1547](https://github.com/Scroll
 `corpus_summary.py` re-derives that table, the surface and pair counts, and the
 duplicate itself from the committed `results/ladder_*.json` files, so the headline
 above can be checked against the artifacts without re-running the scan or touching
-the network.
+the network. `catalog_census.py` derives the other three numbers — 311, 188 and 187 —
+straight from the public catalog, anonymously, so the filter above can be checked
+rather than taken on trust.
 
 The directly reproducible observations are:
 
